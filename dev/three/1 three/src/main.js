@@ -2,15 +2,19 @@ import * as THREE from "three";
 
 const canvas = document.querySelector("canvas.webgl");
 
-console.log(THREE);
-
 const scene = new THREE.Scene();
 
 const geometry = new THREE.BoxGeometry(1, 1, 1);
 const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
 const mesh = new THREE.Mesh(geometry, material);
 
+mesh.position.x = 0.4;
+
 scene.add(mesh);
+
+const axesHelper = new THREE.AxesHelper();
+
+scene.add(axesHelper);
 
 const sizes = {
   width: 800,
@@ -26,9 +30,11 @@ const renderer = new THREE.WebGLRenderer({
 });
 
 renderer.setSize(sizes.width, sizes.height);
+renderer.render(scene, camera);
 
 function animate() {
-  camera.position.x -= 0.1;
+  mesh.rotation.x -= 0.01;
+  mesh.rotation.y -= 0.01;
 
   renderer.render(scene, camera);
 
